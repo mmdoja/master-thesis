@@ -6,6 +6,8 @@ from torch.utils.tensorboard import SummaryWriter
 import torch
 import os
 import argparse
+import wandb
+import random
 from torch import nn, optim
 from core.utils.torchpie import AverageMeter
 import time
@@ -46,6 +48,9 @@ class Engine(BaseEngine):
         self.num_epochs = cfg.get_int('num_epochs')
 
         print(f'Use control: {self.ds.use_control}')
+
+    wandb.init(project='genmusic', sync_tensorboard=True)
+
 
     def train(self, epoch=0):
         loss_meter = AverageMeter()
@@ -96,6 +101,10 @@ class Engine(BaseEngine):
             )
         self.summary_writer.add_scalar('train/loss', loss_meter.avg, epoch)
         self.summary_writer.add_scalar('train/acc', acc_meter.avg, epoch)
+
+        #wandb.log({'epoch': epoch, 'train/loss': loss_meter.avg})
+        #wandb.log({'epoch': epoch, 'train/acc': acc_meter.avg})
+
         return loss_meter.avg
 
     def test(self, epoch=0):
@@ -150,6 +159,9 @@ class Engine(BaseEngine):
                 )
             self.summary_writer.add_scalar('val/loss', loss_meter.avg, epoch)
             self.summary_writer.add_scalar('val/acc', acc_meter.avg, epoch)
+
+            #wandb.log({'epoch': epoch, 'val/loss': loss_meter.avg})
+            #wandb.log({'epoch': epoch, 'val/acc': acc_meter.avg})
 
         return loss_meter.avg
 

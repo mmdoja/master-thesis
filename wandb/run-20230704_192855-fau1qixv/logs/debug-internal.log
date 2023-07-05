@@ -1,0 +1,91 @@
+2023-07-04 19:28:55,895 INFO    StreamThr :1358465 [internal.py:wandb_internal():86] W&B internal server running at pid: 1358465, started at: 2023-07-04 19:28:55.894450
+2023-07-04 19:28:55,897 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: status
+2023-07-04 19:28:55,899 INFO    WriterThread:1358465 [datastore.py:open_for_write():85] open: /home/s6modoja/thesis/master-thesis/wandb/run-20230704_192855-fau1qixv/run-fau1qixv.wandb
+2023-07-04 19:28:55,902 DEBUG   SenderThread:1358465 [sender.py:send():369] send: header
+2023-07-04 19:28:55,902 DEBUG   SenderThread:1358465 [sender.py:send():369] send: run
+2023-07-04 19:28:56,364 INFO    SenderThread:1358465 [dir_watcher.py:__init__():211] watching files in: /home/s6modoja/thesis/master-thesis/wandb/run-20230704_192855-fau1qixv/files
+2023-07-04 19:28:56,365 INFO    SenderThread:1358465 [sender.py:_start_run_threads():1100] run started: fau1qixv with start time 1688491735.892618
+2023-07-04 19:28:56,365 DEBUG   SenderThread:1358465 [sender.py:send_request():396] send_request: summary_record
+2023-07-04 19:28:56,366 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: check_version
+2023-07-04 19:28:56,366 INFO    SenderThread:1358465 [sender.py:_save_file():1354] saving file wandb-summary.json with policy end
+2023-07-04 19:28:56,367 DEBUG   SenderThread:1358465 [sender.py:send_request():396] send_request: check_version
+2023-07-04 19:28:56,459 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: run_start
+2023-07-04 19:28:57,370 INFO    Thread-12 :1358465 [dir_watcher.py:_on_file_created():272] file/dir created: /home/s6modoja/thesis/master-thesis/wandb/run-20230704_192855-fau1qixv/files/wandb-summary.json
+2023-07-04 19:29:07,535 DEBUG   HandlerThread:1358465 [system_info.py:__init__():31] System info init
+2023-07-04 19:29:07,535 DEBUG   HandlerThread:1358465 [system_info.py:__init__():46] System info init done
+2023-07-04 19:29:07,535 INFO    HandlerThread:1358465 [system_monitor.py:start():181] Starting system monitor
+2023-07-04 19:29:07,535 INFO    SystemMonitor:1358465 [system_monitor.py:_start():145] Starting system asset monitoring threads
+2023-07-04 19:29:07,536 INFO    HandlerThread:1358465 [system_monitor.py:probe():201] Collecting system info
+2023-07-04 19:29:07,538 INFO    SystemMonitor:1358465 [interfaces.py:start():190] Started cpu monitoring
+2023-07-04 19:29:07,538 INFO    SystemMonitor:1358465 [interfaces.py:start():190] Started disk monitoring
+2023-07-04 19:29:07,539 INFO    SystemMonitor:1358465 [interfaces.py:start():190] Started gpu monitoring
+2023-07-04 19:29:07,540 INFO    SystemMonitor:1358465 [interfaces.py:start():190] Started memory monitoring
+2023-07-04 19:29:07,544 INFO    SystemMonitor:1358465 [interfaces.py:start():190] Started network monitoring
+2023-07-04 19:29:07,583 DEBUG   HandlerThread:1358465 [system_info.py:probe():195] Probing system
+2023-07-04 19:29:07,584 DEBUG   HandlerThread:1358465 [system_info.py:probe():240] Probing system done
+2023-07-04 19:29:07,584 DEBUG   HandlerThread:1358465 [system_monitor.py:probe():210] {'os': 'Linux-4.18.0-425.19.2.el8_7.x86_64-x86_64-with-glibc2.28', 'python': '3.10.11', 'heartbeatAt': '2023-07-04T17:29:07.583992', 'startedAt': '2023-07-04T17:28:55.852358', 'docker': None, 'cuda': None, 'args': ('-c', 'config/MUSIC/accordion.conf', '-e', 'exps/music-accordion/'), 'state': 'running', 'program': '/home/s6modoja/thesis/master-thesis/train.py', 'codePath': 'train.py', 'host': 'node-01.bender', 'username': 's6modoja', 'executable': '/home/s6modoja/.conda/envs/thesis/bin/python', 'cpu_count': 16, 'cpu_count_logical': 32, 'cpu_freq': {'current': 2724.52215625, 'min': 0.0, 'max': 0.0}, 'cpu_freq_per_core': [{'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2686.362, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2509.533, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2553.739, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2515.221, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2525.616, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2652.029, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}, {'current': 2800.0, 'min': 0.0, 'max': 0.0}], 'disk': {'total': 19.980224609375, 'used': 7.5923309326171875}, 'gpu': 'NVIDIA A40', 'gpu_count': 4, 'gpu_devices': [{'name': 'NVIDIA A40', 'memory_total': 48305799168}, {'name': 'NVIDIA A40', 'memory_total': 48305799168}, {'name': 'NVIDIA A40', 'memory_total': 48305799168}, {'name': 'NVIDIA A40', 'memory_total': 48305799168}], 'memory': {'total': 376.86226654052734}}
+2023-07-04 19:29:07,584 INFO    HandlerThread:1358465 [system_monitor.py:probe():211] Finished collecting system info
+2023-07-04 19:29:07,584 INFO    HandlerThread:1358465 [system_monitor.py:probe():214] Publishing system info
+2023-07-04 19:29:07,584 DEBUG   HandlerThread:1358465 [system_info.py:_save_pip():51] Saving list of pip packages installed into the current environment
+2023-07-04 19:29:07,585 DEBUG   HandlerThread:1358465 [system_info.py:_save_pip():67] Saving pip packages done
+2023-07-04 19:29:07,585 DEBUG   HandlerThread:1358465 [system_info.py:_save_conda():74] Saving list of conda packages installed into the current environment
+2023-07-04 19:29:08,379 INFO    Thread-12 :1358465 [dir_watcher.py:_on_file_created():272] file/dir created: /home/s6modoja/thesis/master-thesis/wandb/run-20230704_192855-fau1qixv/files/requirements.txt
+2023-07-04 19:29:08,380 INFO    Thread-12 :1358465 [dir_watcher.py:_on_file_created():272] file/dir created: /home/s6modoja/thesis/master-thesis/wandb/run-20230704_192855-fau1qixv/files/conda-environment.yaml
+2023-07-04 19:29:12,247 DEBUG   HandlerThread:1358465 [system_info.py:_save_conda():86] Saving conda packages done
+2023-07-04 19:29:12,256 INFO    HandlerThread:1358465 [system_monitor.py:probe():216] Finished publishing system info
+2023-07-04 19:29:12,266 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: status_report
+2023-07-04 19:29:12,266 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: keepalive
+2023-07-04 19:29:12,266 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: status_report
+2023-07-04 19:29:12,266 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: keepalive
+2023-07-04 19:29:12,266 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: status_report
+2023-07-04 19:29:12,266 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: keepalive
+2023-07-04 19:29:12,268 DEBUG   SenderThread:1358465 [sender.py:send():369] send: files
+2023-07-04 19:29:12,268 INFO    SenderThread:1358465 [sender.py:_save_file():1354] saving file wandb-metadata.json with policy now
+2023-07-04 19:29:12,355 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: stop_status
+2023-07-04 19:29:12,355 DEBUG   SenderThread:1358465 [sender.py:send_request():396] send_request: stop_status
+2023-07-04 19:29:12,383 INFO    Thread-12 :1358465 [dir_watcher.py:_on_file_modified():289] file/dir modified: /home/s6modoja/thesis/master-thesis/wandb/run-20230704_192855-fau1qixv/files/conda-environment.yaml
+2023-07-04 19:29:12,383 INFO    Thread-12 :1358465 [dir_watcher.py:_on_file_created():272] file/dir created: /home/s6modoja/thesis/master-thesis/wandb/run-20230704_192855-fau1qixv/files/wandb-metadata.json
+2023-07-04 19:29:12,608 DEBUG   SenderThread:1358465 [sender.py:send():369] send: telemetry
+2023-07-04 19:29:12,644 INFO    HandlerThread:1358465 [handler.py:handle_tbrecord():759] handling tbrecord: tbrecord {
+  log_dir: "exps/music-accordion/"
+  save: true
+}
+control {
+  relay_id: "612984841f6a4149b060c222233a4b66"
+}
+_info {
+  stream_id: "fau1qixv"
+}
+
+2023-07-04 19:29:12,655 DEBUG   HandlerThread:1358465 [config_util.py:dict_from_config_file():104] no default config file found in config-defaults.yaml
+2023-07-04 19:29:12,871 INFO    wandb-upload_0:1358465 [upload_job.py:push():133] Uploaded file /tmp/tmpllv60u2ywandb/g2ac73d6-wandb-metadata.json
+2023-07-04 19:29:12,979 DEBUG   SenderThread:1358465 [sender.py:send():369] send: tbrecord
+2023-07-04 19:29:13,026 DEBUG   SenderThread:1358465 [sender.py:send():369] send: files
+2023-07-04 19:29:13,026 INFO    SenderThread:1358465 [sender.py:_save_file():1354] saving file events.out.tfevents.1688491752.node-01.bender.1358353.0 with policy live
+2023-07-04 19:29:13,386 INFO    Thread-12 :1358465 [dir_watcher.py:_on_file_created():272] file/dir created: /home/s6modoja/thesis/master-thesis/wandb/run-20230704_192855-fau1qixv/files/events.out.tfevents.1688491752.node-01.bender.1358353.0
+2023-07-04 19:29:13,386 INFO    Thread-12 :1358465 [dir_watcher.py:_on_file_created():272] file/dir created: /home/s6modoja/thesis/master-thesis/wandb/run-20230704_192855-fau1qixv/files/output.log
+2023-07-04 19:29:13,470 INFO    wandb-upload_0:1358465 [upload_job.py:push():133] Uploaded file /tmp/tmpllv60u2ywandb/q59t9n7o-events.out.tfevents.1688491752.node-01.bender.1358353.0
+2023-07-04 19:29:15,428 INFO    Thread-12 :1358465 [dir_watcher.py:_on_file_modified():289] file/dir modified: /home/s6modoja/thesis/master-thesis/wandb/run-20230704_192855-fau1qixv/files/output.log
+2023-07-04 19:29:17,344 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: status_report
+2023-07-04 19:29:22,361 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: status_report
+2023-07-04 19:29:27,483 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: stop_status
+2023-07-04 19:29:27,483 DEBUG   SenderThread:1358465 [sender.py:send_request():396] send_request: stop_status
+2023-07-04 19:29:27,638 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: status_report
+2023-07-04 19:29:28,471 INFO    Thread-12 :1358465 [dir_watcher.py:_on_file_modified():289] file/dir modified: /home/s6modoja/thesis/master-thesis/wandb/run-20230704_192855-fau1qixv/files/config.yaml
+2023-07-04 19:29:29,505 INFO    Thread-12 :1358465 [dir_watcher.py:_on_file_modified():289] file/dir modified: /home/s6modoja/thesis/master-thesis/wandb/run-20230704_192855-fau1qixv/files/output.log
+2023-07-04 19:29:32,887 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: status_report
+2023-07-04 19:29:37,889 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: status_report
+2023-07-04 19:29:42,486 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: stop_status
+2023-07-04 19:29:42,486 DEBUG   SenderThread:1358465 [sender.py:send_request():396] send_request: stop_status
+2023-07-04 19:29:43,637 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: status_report
+2023-07-04 19:29:48,778 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: status_report
+2023-07-04 19:29:53,868 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: status_report
+2023-07-04 19:29:57,492 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: stop_status
+2023-07-04 19:29:57,493 DEBUG   SenderThread:1358465 [sender.py:send_request():396] send_request: stop_status
+2023-07-04 19:29:59,643 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: status_report
+2023-07-04 19:30:04,647 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: status_report
+2023-07-04 19:30:07,547 DEBUG   SystemMonitor:1358465 [system_monitor.py:_start():159] Starting system metrics aggregation loop
+2023-07-04 19:30:07,559 DEBUG   SenderThread:1358465 [sender.py:send():369] send: stats
+2023-07-04 19:30:10,577 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: status_report
+2023-07-04 19:30:12,486 DEBUG   HandlerThread:1358465 [handler.py:handle_request():144] handle_request: stop_status
+2023-07-04 19:30:12,486 DEBUG   SenderThread:1358465 [sender.py:send_request():396] send_request: stop_status
