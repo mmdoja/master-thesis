@@ -15,7 +15,7 @@ from pyhocon import ConfigFactory, ConfigTree
 from pprint import pprint
 from tqdm import tqdm
 from core.iterators.YT_data import YoutubeDataset
-from core.models.transformer_decoder_dev.transformer_decoder import MusicTransformer
+from core.models.transformer_music_decoder.transformer_decoder import MusicTransformer
 from core import utils
 import os
 

@@ -357,7 +357,7 @@ class DummyEncoder(nn.TransformerEncoder):
         return src
 
 
-def transformer_decoder_dev_baseline(
+def transformer_music_decoder_baseline(
         vocab_size,
         num_heads=8,
         d_model=512,

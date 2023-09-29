@@ -21,6 +21,37 @@ from pyhocon import ConfigFactory, ConfigTree
 
 class baseengine(Basebaseengine):
 
+    @staticmethod
+    def epoch_time(start_time: float, end_time: float):
+        elapsed_time = end_time - start_time
+        elapsed_mins = int(elapsed_time / 60)
+        elapsed_secs = int(elapsed_time - (elapsed_mins * 60))
+        return elapsed_mins, elapsed_secs
+
+    def run(self):
+        best_loss = float('inf')
+        for epoch in range(self.epochs_size):
+            start_time = time.time()
+            _train_loss = self.train(epoch)
+            loss = self.test(epoch)
+            end_time = time.time()
+            epoch_mins, epoch_secs = self.epoch_time(start_time, end_time)
+
+            print(f'Epoch: {epoch + 1:02} | Time: {epoch_mins}m {epoch_secs}s')
+
+            is_best = loss < best_loss
+            best_loss = min(loss, best_loss)
+            torch.save(
+                {
+                    'state_dict': self.model.module.state_dict(),
+                    'optimizer': self.optimizer.state_dict()
+                },
+                os.path.join(self.experiment_path, "checkpoint.pt")
+            )
+
+    def close(self):
+        self.summary_writer.close()
+
     def __init__(self, cfg: ConfigTree, args):
         self.cfg = cfg
         self.experiment_path = args.exps
@@ -45,7 +76,7 @@ class baseengine(Basebaseengine):
             optimizer=optimizer,
         )
 
-        self.num_epochs = cfg.get_int('num_epochs')
+        self.epochs_size = cfg.get_int('epochs_size')
 
         print(f'Use control: {self.ds.use_control}')
 
@@ -53,8 +84,8 @@ class baseengine(Basebaseengine):
 
 
     def train(self, epoch=0):
-        loss_meter = AverageMeter()
-        acc_meter = AverageMeter()
+        calc_loss = AverageMeter()
+        calc_acc = AverageMeter()
         num_iters = len(self.train_ds)
         self.model.train()
         for i, data in enumerate(self.train_ds):
@@ -79,7 +110,6 @@ class baseengine(Basebaseengine):
                 control = control.cuda(non_blocking=True)
             else:
                 control = None
-            # print(f"feat: {feat.shape}, midi_x: {midi_x.shape}, control: {control}")
             output = self.model(feat, midi_x, pad_idx=self.ds.PAD_IDX, control=control)
 
             loss = self.train_Loss(output.view(-1, output.shape[-1]), midi_y.flatten())
@@ -92,24 +122,24 @@ class baseengine(Basebaseengine):
             acc = compute_epiano_accuracy(output, midi_y, pad_idx=self.ds.PAD_IDX)
 
             batch_size = len(midi_x)
-            loss_meter.update(loss.item(), batch_size)
-            acc_meter.update(acc.item(), batch_size)
+            calc_loss.update(loss.item(), batch_size)
+            calc_acc.update(acc.item(), batch_size)
 
             print(
-                f'Train [{epoch}/{self.num_epochs}][{i}/{num_iters}]\t'
-                f'{loss_meter.avg}\t{acc_meter.avg}'
+                f'Train [{epoch}/{self.epochs_size}][{i}/{num_iters}]\t'
+                f'{calc_loss.avg}\t{calc_acc.avg}'
             )
-        self.summary_writer.add_scalar('train/loss', loss_meter.avg, epoch)
-        self.summary_writer.add_scalar('train/acc', acc_meter.avg, epoch)
+        self.summary_writer.add_scalar('train/loss', calc_loss.avg, epoch)
+        self.summary_writer.add_scalar('train/acc', calc_acc.avg, epoch)
 
-        #wandb.log({'epoch': epoch, 'train/loss': loss_meter.avg})
-        #wandb.log({'epoch': epoch, 'train/acc': acc_meter.avg})
+        #wandb.log({'epoch': epoch, 'train/loss': calc_loss.avg})
+        #wandb.log({'epoch': epoch, 'train/acc': calc_acc.avg})
 
-        return loss_meter.avg
+        return calc_loss.avg
 
     def test(self, epoch=0):
-        loss_meter = AverageMeter()
-        acc_meter = AverageMeter()
+        calc_loss = AverageMeter()
+        calc_acc = AverageMeter()
         num_iters = len(self.test_ds)
         self.model.eval()
 
@@ -131,70 +161,34 @@ class baseengine(Basebaseengine):
                     midi_x.cuda(non_blocking=True),
                     midi_y.cuda(non_blocking=True)
                 )
-                # print(f"feat: {feat.shape}, midi_x: {midi_x.shape}, midi_y: {midi_y.shape}")
                 if self.ds.use_control:
                     control = data['control']
                     control = control.cuda(non_blocking=True)
                 else:
                     control = None
 
-                # print(f"feat: {feat.shape}, midi_x: {midi_x.shape}, control: {control}")
                 output = self.model(feat, midi_x, pad_idx=self.ds.PAD_IDX, control=control)
 
-                """
-                For CrossEntropy
-                output: [B, T, D] -> [BT, D]
-                target: [B, T] -> [BT]
-                """
                 loss = self.val_Loss(output.view(-1, output.shape[-1]), midi_y.flatten())
 
                 acc = compute_epiano_accuracy(output, midi_y)
 
                 batch_size = len(midi_x)
-                loss_meter.update(loss.item(), batch_size)
-                acc_meter.update(acc.item(), batch_size)
+                calc_loss.update(loss.item(), batch_size)
+                calc_acc.update(acc.item(), batch_size)
                 print(
-                    f'Val [{epoch}/{self.num_epochs}][{i}/{num_iters}]\t'
-                    f'{loss_meter.avg}\t{acc_meter.avg}'
+                    f'Val [{epoch}/{self.epochs_size}][{i}/{num_iters}]\t'
+                    f'{calc_loss.avg}\t{calc_acc.avg}'
                 )
-            self.summary_writer.add_scalar('val/loss', loss_meter.avg, epoch)
-            self.summary_writer.add_scalar('val/acc', acc_meter.avg, epoch)
+            self.summary_writer.add_scalar('val/loss', calc_loss.avg, epoch)
+            self.summary_writer.add_scalar('val/acc', calc_acc.avg, epoch)
 
-            #wandb.log({'epoch': epoch, 'val/loss': loss_meter.avg})
-            #wandb.log({'epoch': epoch, 'val/acc': acc_meter.avg})
+            #wandb.log({'epoch': epoch, 'val/loss': calc_loss.avg})
+            #wandb.log({'epoch': epoch, 'val/acc': calc_acc.avg})
 
-        return loss_meter.avg
+        return calc_loss.avg
 
-    @staticmethod
-    def epoch_time(start_time: float, end_time: float):
-        elapsed_time = end_time - start_time
-        elapsed_mins = int(elapsed_time / 60)
-        elapsed_secs = int(elapsed_time - (elapsed_mins * 60))
-        return elapsed_mins, elapsed_secs
-
-    def run(self):
-        best_loss = float('inf')
-        for epoch in range(self.num_epochs):
-            start_time = time.time()
-            _train_loss = self.train(epoch)
-            loss = self.test(epoch)
-            end_time = time.time()
-            epoch_mins, epoch_secs = self.epoch_time(start_time, end_time)
-
-            print(f'Epoch: {epoch + 1:02} | Time: {epoch_mins}m {epoch_secs}s')
-
-            is_best = loss < best_loss
-            best_loss = min(loss, best_loss)
-            torch.save(
-                {
-                    'state_dict': self.model.module.state_dict(),
-                    'optimizer': self.optimizer.state_dict()
-                },
-                os.path.join(self.experiment_path, "checkpoint.pt")
-            )
-
-    def close(self):
-        self.summary_writer.close()
+    
 
 
 def main():

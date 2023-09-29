@@ -21,8 +21,8 @@ class ModelFactory:
         audio_duration = duration
 
         if self.cfg.get_string('model.name') == 'transformer_decoder':
-            from .transformer_decoder_dev.transformer_decoder import transformer_decoder_dev_baseline
-            sequence_pose = transformer_decoder_dev_baseline(
+            from .transformer_music_decoder.transformer_decoder import transformer_music_decoder_baseline
+            sequence_pose = transformer_music_decoder_baseline(
                 240 + 3,
                 d_model=emb_dim,
                 dim_feedforward=emb_dim * 2,
