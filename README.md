@@ -3,26 +3,42 @@
 
 ### Prerequisites
 
-The training and testing in PGCN is reimplemented in PyTorch for the ease of use.
-- Pytorch 1.4
-
-Other minor Python modules can be installed by running
-
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
-### Data Preparation
+Datasets
 
-#### Download Datasets
+The link to the datasets are : 
+- URMP: [here](http://www2.ece.rochester.edu/projects/air/projects/URMP.html)
+- MUSIC: [here](https://github.com/roudimit/MUSIC_dataset)
+- Piano: [At Your Fingertips: Automatic Piano Fingering Detection](https://openreview.net/forum?id=H1MOqeHYvB). The dataset from [here](https://drive.google.com/file/d/1kDPZSA7ppOaup9Q1Dab7bW4OXNh9mAQA/view)
 
-The extracted pose and midi for training and audio generation can be [downloaded here](http://data.csail.mit.edu/clevrer/data_pose_midi.tar) and unzip to ``./data`` folder.
+To extract poses from videos: 
+Use OpenPose API from [here](https://github.com/CMU-Perceptual-Computing-Lab/openpose)
 
-The original datasets (including videos) can be found: 
-- URMP: can be downloaded [here](http://www2.ece.rochester.edu/projects/air/projects/URMP.html)
-- MUSIC: can be downloaded [here](https://github.com/roudimit/MUSIC_dataset)
-- AtinPiano: proposed by [At Your Fingertips: Automatic Piano Fingering Detection](https://openreview.net/forum?id=H1MOqeHYvB). The dataset can be downloaded [here](https://drive.google.com/file/d/1kDPZSA7ppOaup9Q1Dab7bW4OXNh9mAQA/view)
+To extract MIDI from the audio
+Use Lunarverus from [here](https://www.lunaverus.com/)
 
+Once you have poses and midi from the videos and audio,
+make a 'data' folder such that for each dataset there is a folder for midi and pose for each instrument
+```
+-data
+  -URMP
+    -midi
+      -cello
+      -violin
+      -...
+    -pose
+      -cello
+      -violin
+      -...
+  -MUSIC
+    -midi
+      -...
+    -pose
+      -...
+```
 
 ### Training
 
