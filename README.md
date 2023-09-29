@@ -112,6 +112,6 @@ conda activate thesis
 cd /home/s6modoja/thesis/master-thesis
 srun bash train_test/URMP_train.sh
 ```
-Create the above code in a ```slurmjob.sh``` file and run using ```sbatch slurmjob,sh```
+Create the above code in a ```slurmjob.sh``` file and run using ```sbatch slurmjob.sh```
 
 
