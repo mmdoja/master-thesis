@@ -1,7 +1,7 @@
 import pretty_midi
 from pretty_midi import PrettyMIDI
 from scipy.io import wavfile
-from core.performance_rnn.sequence import EventSeq, ControlSeq, Control
+from core.RNN.sequence import EventSeq, ControlSeq, Control
 from torch import Tensor
 import numpy as np
 import torch

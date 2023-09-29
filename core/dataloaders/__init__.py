@@ -17,11 +17,11 @@ class DataLoaderFactory:
         if dset == 'urmp':
             from .urmp import URMPDataset
             ds = URMPDataset.from_cfg(self.cfg, split=split)
-        elif dset == 'urmp_midi2feat':
-            from .urmp_midi2feat import URMPMIDI2FeatDataset
-            ds = URMPMIDI2FeatDataset.from_cfg(self.cfg, split=split)
+        elif dset == 'urmp_testingMIDI':
+            from .urmp_testingMIDI import URMPtestingMIDIDataset
+            ds = URMPtestingMIDIDataset.from_cfg(self.cfg, split=split)
         elif dset == 'atinpiano':
-            from .urmp_music_transformer import URMPDataset
+            from .urmp_transformer_decoder import URMPDataset
             ds = URMPDataset.from_cfg(self.cfg, split=split)
         elif dset == 'youtube_atinpiano':
             from .youtube_dataset import YoutubeDataset

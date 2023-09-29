@@ -12,8 +12,8 @@
         "exps/music-acoustic_guitar/"
     ],
     "state": "running",
-    "program": "/home/s6modoja/thesis/master-thesis/train.py",
-    "codePath": "train.py",
+    "program": "/home/s6modoja/thesis/master-thesis/trained_all.py",
+    "codePath": "trained_all.py",
     "host": "node-01.bender",
     "username": "s6modoja",
     "executable": "/home/s6modoja/.conda/envs/thesis/bin/python",

@@ -17,7 +17,7 @@ class Sample:
     duration: float
 
 
-class URMPMIDI2FeatDataset(Dataset):
+class URMPtestingMIDIDataset(Dataset):
     # PAD_IDX = 240
     SOS_IDX = 10896
     # EOS_IDX = 242

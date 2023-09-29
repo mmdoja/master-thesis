@@ -1,4 +1,4 @@
-from core.performance_rnn.sequence import NoteSeq, EventSeq, ControlSeq
+from core.RNN.sequence import NoteSeq, EventSeq, ControlSeq
 from pretty_midi import PrettyMIDI
 import numpy as np
 import torch

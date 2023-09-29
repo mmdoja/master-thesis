@@ -1,4 +1,4 @@
-python test_AtinPiano_MUSIC.py \
+python Piano_Musictesting.py \
 exps/atinpiano/checkpoint.pt \
 -o exps/atinpiano/generate \
 -i Piano \

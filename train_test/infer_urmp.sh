@@ -1,4 +1,4 @@
-python test_URMP.py \
+python URMPtesting.py \
 exps/urmp-vn/checkpoint.pt \
 -o exps/urmp-vn/generate \
 -i Violin \

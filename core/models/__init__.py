@@ -20,9 +20,9 @@ class ModelFactory:
         streams = self.cfg.get_config('dataset.streams')
         audio_duration = duration
 
-        if self.cfg.get_string('model.name') == 'music_transformer':
-            from .music_transformer_dev.music_transformer import music_transformer_dev_baseline
-            pose_seq2seq = music_transformer_dev_baseline(
+        if self.cfg.get_string('model.name') == 'transformer_decoder':
+            from .transformer_decoder_dev.transformer_decoder import transformer_decoder_dev_baseline
+            sequence_pose = transformer_decoder_dev_baseline(
                 240 + 3,
                 d_model=emb_dim,
                 dim_feedforward=emb_dim * 2,
@@ -43,7 +43,7 @@ class ModelFactory:
         else:
             raise Exception
 
-        pose_seq2seq = pose_seq2seq.to(device)
-        pose_seq2seq = wrapper(pose_seq2seq)
+        sequence_pose = sequence_pose.to(device)
+        sequence_pose = wrapper(sequence_pose)
 
-        return pose_seq2seq
+        return sequence_pose

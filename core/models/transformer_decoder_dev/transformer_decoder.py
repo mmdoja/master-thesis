@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import random
-from core.models.st_gcn.st_gcn_aaai18 import st_gcn_baseline
+from core.models.CoST_GCN.CoST_GCN_aaai18 import CoST_GCN_baseline
 
 from .positional_encoding import PositionalEncoding
 from .rpr import TransformerEncoderRPR, TransformerEncoderLayerRPR, TransformerDecoderLayerRPR, TransformerDecoderRPR
@@ -357,7 +357,7 @@ class DummyEncoder(nn.TransformerEncoder):
         return src
 
 
-def music_transformer_dev_baseline(
+def transformer_decoder_dev_baseline(
         vocab_size,
         num_heads=8,
         d_model=512,
@@ -374,7 +374,7 @@ def music_transformer_dev_baseline(
         layers=10 
 ):
     in_channels = 2 if layout == 'hands' else 3
-    pose_net = st_gcn_baseline(
+    pose_net = CoST_GCN_baseline(
         in_channels, d_model, layers=layers, layout=layout, dropout=dropout
     )
 
@@ -388,7 +388,7 @@ def music_transformer_dev_baseline(
     else:
         rnn_cls = None
 
-    music_transformer = MusicTransformer(
+    transformer_decoder = MusicTransformer(
         vocab_size,
         pose_net,
         num_heads=num_heads,
@@ -403,4 +403,4 @@ def music_transformer_dev_baseline(
         use_control=use_control,
         rnn=rnn_cls
     )
-    return music_transformer
+    return transformer_decoder

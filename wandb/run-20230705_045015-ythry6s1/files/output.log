@@ -4,7 +4,7 @@
   warnings.warn(_create_warning_msg(
 ====================================================================================================
 ConfigTree([('model',
-             ConfigTree([('name', 'music_transformer'),
+             ConfigTree([('name', 'transformer_decoder'),
                          ('emb_dim', 512),
                          ('clip', None),
                          ('num_encoder_layers', 0),

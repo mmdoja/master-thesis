@@ -1,7 +1,7 @@
 import os
 import numpy as np
 # from deprecated.sequence import EventSeq, ControlSeq
-from core.performance_rnn.sequence import EventSeq
+from core.RNN.sequence import EventSeq
 import torch
 import torch.nn.functional as F
 import torchvision

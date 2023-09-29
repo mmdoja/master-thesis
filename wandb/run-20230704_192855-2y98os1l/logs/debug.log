@@ -4,7 +4,7 @@
 2023-07-04 19:28:55,897 INFO    MainThread:1358358 [wandb_setup.py:_flush():76] Loading settings from /home/s6modoja/thesis/master-thesis/wandb/settings
 2023-07-04 19:28:55,897 INFO    MainThread:1358358 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
 2023-07-04 19:28:55,897 INFO    MainThread:1358358 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
-2023-07-04 19:28:55,897 INFO    MainThread:1358358 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'train.py', 'program': '/home/s6modoja/thesis/master-thesis/train.py'}
+2023-07-04 19:28:55,897 INFO    MainThread:1358358 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'trained_all.py', 'program': '/home/s6modoja/thesis/master-thesis/trained_all.py'}
 2023-07-04 19:28:55,897 INFO    MainThread:1358358 [wandb_init.py:_log_setup():507] Logging user logs to /home/s6modoja/thesis/master-thesis/wandb/run-20230704_192855-2y98os1l/logs/debug.log
 2023-07-04 19:28:55,897 INFO    MainThread:1358358 [wandb_init.py:_log_setup():508] Logging internal logs to /home/s6modoja/thesis/master-thesis/wandb/run-20230704_192855-2y98os1l/logs/debug-internal.log
 2023-07-04 19:28:55,897 INFO    MainThread:1358358 [wandb_init.py:init():547] calling init triggers

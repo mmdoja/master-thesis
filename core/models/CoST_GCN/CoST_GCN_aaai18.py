@@ -2,10 +2,10 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from core.models.st_gcn.ops import ConvTemporalGraphical, Graph
+from core.models.CoST_GCN.ops import ConvTemporalGraphical, Graph
 
 
-class ST_GCN_18(nn.Module):
+class CoST_GCN_18(nn.Module):
     r"""Spatial temporal graph convolutional networks.
 
     Args:
@@ -48,8 +48,8 @@ class ST_GCN_18(nn.Module):
             in_channels * A.size(1)) if data_bn else lambda x: x
         kwargs0 = {k: v for k, v in kwargs.items() if k != 'dropout'}
 
-        self.st_gcn_networks = nn.ModuleList([
-            st_gcn_block(
+        self.CoST_GCN_networks = nn.ModuleList([
+            CoST_GCN_block(
                 in_channels, 64, kernel_size, 1, residual=False, **kwargs0)]
         )
         layer_cfg = [
@@ -64,22 +64,22 @@ class ST_GCN_18(nn.Module):
             ((256, 256, kernel_size, 1), kwargs)
         ]
         for args, kwargs in layer_cfg[:num_layer-1]:
-            block = st_gcn_block(*args, ** kwargs)
-            self.st_gcn_networks.append(block)
+            block = CoST_GCN_block(*args, ** kwargs)
+            self.CoST_GCN_networks.append(block)
         fc_in_ch = layer_cfg[:num_layer-1][-1][0][1]
 
         # initialize parameters for edge importance weighting
         if edge_importance_weighting:
             # self.edge_importance = nn.ParameterList([
             #     nn.Parameter(torch.ones(self.A.size()))
-            #     for i in self.st_gcn_networks
+            #     for i in self.CoST_GCN_networks
             # ])
-            for i in range(len(self.st_gcn_networks)):
+            for i in range(len(self.CoST_GCN_networks)):
                 parameter = nn.Parameter(torch.ones(self.A.size()))
                 setattr(self, f'edge_importance_{i}', parameter)
                 setattr(self, f'edge_importance_num', i+1)
         else:
-            self.edge_importance = [1] * len(self.st_gcn_networks)
+            self.edge_importance = [1] * len(self.CoST_GCN_networks)
         # fcn for prediction
         self.fcn = nn.Conv2d(256, num_class, kernel_size=1)
 
@@ -94,11 +94,11 @@ class ST_GCN_18(nn.Module):
         x = x.permute(0, 1, 3, 4, 2).contiguous()
         x = x.view(N * M, C, T, V)
         # forwad
-        # for gcn, importance in zip(self.st_gcn_networks, self.edge_importance):
+        # for gcn, importance in zip(self.CoST_GCN_networks, self.edge_importance):
         #     x, _ = gcn(x, self.A * importance)
         for i in range(self.edge_importance_num):
-            # print(f"gcn: {self.st_gcn_networks[i]}, importance: {getattr(self, f'edge_importance_{i}')}")
-            gcn, importance = self.st_gcn_networks[i], getattr(self, f'edge_importance_{i}')
+            # print(f"gcn: {self.CoST_GCN_networks[i]}, importance: {getattr(self, f'edge_importance_{i}')}")
+            gcn, importance = self.CoST_GCN_networks[i], getattr(self, f'edge_importance_{i}')
             x, _ = gcn(x, self.A * importance)
         x = F.avg_pool2d(x, (1, V))  # [NM, C, T, V] -> [NM, C, T, 1]
         x = x.view(N, M, -1, x.shape[-2], 1).mean(dim=1)
@@ -119,7 +119,7 @@ class ST_GCN_18(nn.Module):
         x = x.view(N * M, C, T, V)
 
         # forwad
-        for gcn, importance in zip(self.st_gcn_networks, self.edge_importance):
+        for gcn, importance in zip(self.CoST_GCN_networks, self.edge_importance):
             x, _ = gcn(x, self.A * importance)
 
         _, c, t, v = x.size()
@@ -132,7 +132,7 @@ class ST_GCN_18(nn.Module):
         return output, feature
 
 
-class st_gcn_block(nn.Module):
+class CoST_GCN_block(nn.Module):
     r"""Applies a spatial temporal graph convolution over an input graph sequence.
 
     Args:
@@ -212,12 +212,12 @@ class st_gcn_block(nn.Module):
         return self.relu(x), A
 
 
-def st_gcn_baseline(in_channels: int, out_channels: int, layers: int, layout='body25', dropout=0.1):
+def CoST_GCN_baseline(in_channels: int, out_channels: int, layers: int, layout='body25', dropout=0.1):
     graph_cfg = {
         "layout": layout,
         "strategy": "spatial"
     }
-    model = ST_GCN_18(
+    model = CoST_GCN_18(
         in_channels,
         out_channels,
         layers,
@@ -229,5 +229,5 @@ def st_gcn_baseline(in_channels: int, out_channels: int, layers: int, layout='bo
 
 
 if __name__ == '__main__':
-    model = st_gcn_baseline(3, 1000, 9)
+    model = CoST_GCN_baseline(3, 1000, 9)
     print(model)
