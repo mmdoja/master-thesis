@@ -4,7 +4,10 @@
 ### Prerequisites
 
 ```bash
-pip3 install -r requirements.txt
+pip install -r requirements.txt
+pip install pretty_midi
+pip install pyhocon
+pip install pyFluidSynth
 ```
 
 Datasets
@@ -23,6 +26,7 @@ Use Lunarverus from [here](https://www.lunaverus.com/)
 Once you have poses and midi from the videos and audio,
 make a 'data' folder such that for each dataset there is a folder for midi and pose for each instrument
 ```
+-config
 -data
   -URMP
     -midi
@@ -38,71 +42,76 @@ make a 'data' folder such that for each dataset there is a folder for midi and p
       -...
     -pose
       -...
+-core
 ```
 
 ### Training
 
 For URMP
 ```bash
-CUDA_VISIBLE_DEVICES=6 python train.py -c config/URMP/violin.conf -e exps/urmp-vn
+bash train_test/URMP_train.sh
 ```
 
-For AtinPiano
+For Piano
 ```bash
-CUDA_VISIBLE_DEVICES=6 python train.py -c config/AtinPiano.conf -e exps/atinpiano
+bash train_test/Piano_train.sh
 ```
 
 For MUSIC
 ```bash
-CUDA_VISIBLE_DEVICES=6 python train.py -c config/MUSIC/accordion.conf -e exps/music-accordion
+bash train_test/MUSIC_train.sh
 ```
 
+You will notice a new directory called 'exps' is generated having checkpoints. 
 
-### Generating MIDI, sounds and videos
+###Testing
 
+Install fluidsynth
+```
+apt install fluidsynth
+pip install pyfluidsynth
+pip uninstall fluidsynth
+pip show pyfluidsynth
+```
 For URMP
 ```bash
-VIDEO_PATH=/path/to/video
-INSTRUMENT_NAME='Violin'
-python test_URMP.py exps/urmp-vn/checkpoint.pth.tar -o exps/urmp-vn/generate -i Violin -v $VIDEO_PATH -i $INSTRUMENT_NAME
-```
-
-
-
-For AtinPiano
-```bash
-VIDEO_PATH=/path/to/video
-INSTRUMENT_NAME='Acoustic Grand Piano'
-python test_AtinPiano_MUSIC.py exps/atinpiano/checkpoint.pth.tar -o exps/atinpiano/generation -v $VIDEO_PATH -i $INSTRUMENT_NAME
+bash train_test/URMP_train.sh
 ```
 
 For MUSIC
 ```bash
-VIDEO_PATH=/path/to/video
-INSTRUMENT_NAME='Accordion'
-python test_AtinPiano_MUSIC.py exps/music-accordion/checkpoint.pth.tar -o exps/music-accordion/generation -v $VIDEO_PATH -i $INSTRUMENT_NAME
+bash train_test/MUSIC_train.sh
 ```
 
-Notes:
-- Instrument name ($INSTRUMENT_NAME) can be found [here](https://github.com/craffel/pretty-midi/blob/master/pretty_midi/constants.py#L7)
-
-- If you do not have the video file or you want to generate MIDI and audio only, you can add ``-oa`` flag to skip the generation of video.
-
-## Other Info
-
-### Citation
-
-Please cite the following paper if you feel our work useful to your research.
-
+For Piano
+```bash
+bash train_test/Piano_train.sh
 ```
-@inproceedings{FoleyMusic2020,
-  author    = {Chuang Gan and
-               Deng Huang and
-               Peihao Chen and
-               Joshua B. Tenenbaum and
-               Antonio Torralba},
-  title     = {Foley Music: Learning to Generate Music from Videos},
-  booktitle = {ECCV},
-  year      = {2020},
-}
+
+For NDB evaluation, use [this](https://github.com/eitanrich/gans-n-gmms/tree/master)
+
+To submit a job in a slurm system, here is an example below.:
 ```
+#!/bin/bash
+#SBATCH --account=userdef
+#SBATCH --job-name=genmusic
+#SBATCH --output=%J.out
+#SBATCH --error=%J.error
+#SBATCH --gres=gpu:1
+#SBATCH --ntasks=1
+#SBATCH --partition=A100short
+#SBATCH --cpus-per-task=12
+#SBATCH --time=8:00:00
+
+module load Anaconda3/2022.05
+module load CUDA/11.7.0
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/s6modoja/.conda/envs/thesis/lib
+eval "$(conda shell.bash hook)"
+conda activate thesis
+
+cd /home/s6modoja/thesis/master-thesis
+srun bash train_test/URMP_train.sh
+```
+Create the above code in a ```slurmjob.sh``` file and run using ```sbatch slurmjob,sh```
+
+
