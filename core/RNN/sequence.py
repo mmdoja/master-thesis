@@ -7,6 +7,7 @@ from pretty_midi import PrettyMIDI, Note, Instrument
 # ==================================================================================
 
 # NoteSeq -------------------------------------------------------------------------
+# from https://github.com/SunDoge/Performance-RNN-PyTorch/tree/dev
 
 DEFAULT_SAVING_PROGRAM = 1
 DEFAULT_LOADING_PROGRAMS = range(128)
