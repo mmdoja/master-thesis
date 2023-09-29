@@ -1,7 +1,7 @@
 # Inferring instrument tune from visual data
 
 
-### Prerequisites
+### Requirements
 
 ```bash
 pip install -r requirements.txt
@@ -10,7 +10,7 @@ pip install pyhocon
 pip install pyFluidSynth
 ```
 
-Datasets
+### Datasets
 
 The link to the datasets are : 
 - URMP: [here](http://www2.ece.rochester.edu/projects/air/projects/URMP.html)
@@ -64,7 +64,7 @@ bash train_test/MUSIC_train.sh
 
 You will notice a new directory called 'exps' is generated having checkpoints. 
 
-###Testing
+### Testing
 
 Install fluidsynth
 ```
