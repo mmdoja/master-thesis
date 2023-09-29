@@ -11,4 +11,4 @@
 2023-07-04 00:14:24,144 INFO    MainThread:1078101 [wandb_init.py:init():554] wandb.init called with sweep_config: {}
 config: {}
 2023-07-04 00:14:24,144 INFO    MainThread:1078101 [wandb_init.py:init():591] wandb.init() called when a run is still active
-2023-07-04 00:14:24,203 INFO    MainThread:1078101 [wandb_run.py:_tensorboard_callback():1430] tensorboard callback: exps/atinpiano/, True
+2023-07-04 00:14:24,203 INFO    MainThread:1078101 [wandb_run.py:_tensorboard_callback():1430] tensorboard callback: exps/Piano/, True

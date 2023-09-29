@@ -31,7 +31,7 @@ class ModelFactory:
                 layout=layout,
                 num_encoder_layers=self.cfg.get_int('model.num_encoder_layers', 0),
                 num_decoder_layers=self.cfg.get_int('model.num_decoder_layers', 3),
-                rpr=self.cfg.get_bool('model.rpr', True),
+                RelativePosition=self.cfg.get_bool('model.RelativePosition', True),
                 use_control='control' in self.cfg.get_config('dataset.streams'),
                 rnn=self.cfg.get_string('model.rnn', None),
                 layers=self.cfg.get_int('model.pose_net_layers')

@@ -5,7 +5,7 @@ ConfigTree([('model',
                          ('clip', None),
                          ('num_encoder_layers', 0),
                          ('num_decoder_layers', 6),
-                         ('rpr', True),
+                         ('RelativePosition', True),
                          ('decoder_max_seq', 512),
                          ('pose_net_layers', 10)])),
             ('optimizer', ConfigTree([('lr', 0.001)])),
@@ -14,14 +14,14 @@ ConfigTree([('model',
             ('batch_size', 16),
             ('label_smooth', 0.0),
             ('dataset',
-             ConfigTree([('dset', 'youtube_atinpiano'),
+             ConfigTree([('dset', 'youtube_Piano'),
                          ('duration', 6.0),
                          ('fps', 22),
                          ('pose_layout', 'body65'),
                          ('duplication', 100),
                          ('events_per_sec', 80),
                          ('random_shift_rate', 0.2),
-                         ('split_csv_dir', 'resources/MUSIC/acoustic_guitar'),
+                         ('split_csv_dir', 'split_data/MUSIC/acoustic_guitar'),
                          ('streams',
                           ConfigTree([('midi',
                                        'data/MUSIC/midi_sw/acoustic_guitar'),
@@ -30,9 +30,9 @@ ConfigTree([('model',
                          ('instrument', 'Acoustic Guitar (nylon)')])),
             ('ckpt', 'ckpt')])
 ====================================================================================================
-dset: youtube_atinpiano
+dset: youtube_Piano
 Real batch size: 64
-dset: youtube_atinpiano
+dset: youtube_Piano
 Real batch size: 64
 positional encoding: torch.Size([512, 1, 512])
 /home/s6modoja/.conda/envs/thesis/lib/python3.10/site-packages/torch/utils/data/dataloader.py:560: UserWarning: This DataLoader will create 32 worker processes in total. Our suggested max number of worker in current system is 12, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.

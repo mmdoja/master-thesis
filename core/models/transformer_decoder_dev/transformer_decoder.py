@@ -4,7 +4,7 @@ import random
 from core.models.CoST_GCN.CoST_GCN_aaai18 import CoST_GCN_baseline
 
 from .positional_encoding import PositionalEncoding
-from .rpr import TransformerEncoderRPR, TransformerEncoderLayerRPR, TransformerDecoderLayerRPR, TransformerDecoderRPR
+from .RelativePosition import TransformerEncoderRPR, TransformerEncoderLayerRPR, TransformerDecoderLayerRPR, TransformerDecoderRPR
 from torch import Tensor
 from typing import Optional
 
@@ -20,11 +20,11 @@ class MusicTransformer(nn.Module):
     Author: Damon Gwinn
     ----------
     Music Transformer reproduction from https://arxiv.org/abs/1809.04281. Arguments allow for
-    tweaking the transformer architecture (https://arxiv.org/abs/1706.03762) and the rpr argument
-    toggles Relative Position Representations (RPR - https://arxiv.org/abs/1803.02155).
+    tweaking the transformer architecture (https://arxiv.org/abs/1706.03762) and the RelativePosition argument
+    toggles Relative Position Representations (RelativePosition - https://arxiv.org/abs/1803.02155).
     Supports training and generation using Pytorch's nn.Transformer class with dummy decoder to
     make a decoder-only transformer architecture
-    For RPR support, there is modified Pytorch 1.2.0 code in rpr.py. Modified source will be
+    For RelativePosition support, there is modified Pytorch 1.2.0 code in RelativePosition.py. Modified source will be
     kept up to date with Pytorch revisions only as necessary.
     ----------
     """
@@ -40,7 +40,7 @@ class MusicTransformer(nn.Module):
             # max_sequence=2048,
             encoder_max_seq=300,
             decoder_max_seq=512,
-            rpr=False,
+            RelativePosition=False,
             num_encoder_layers=0,
             num_decoder_layers=6,
             control_dim=12,
@@ -57,7 +57,7 @@ class MusicTransformer(nn.Module):
         self.dropout = dropout
         self.encoder_max_seq = encoder_max_seq
         self.decoder_max_seq = decoder_max_seq
-        self.rpr = rpr
+        self.RelativePosition = RelativePosition
         self.vocab_size = vocab_size
         self.control_dim = control_dim
         self.concat_dim = d_model + 1 + control_dim
@@ -97,7 +97,7 @@ class MusicTransformer(nn.Module):
             )
         else:
             # Base transformer
-            if (not self.rpr):
+            if (not self.RelativePosition):
                 # To make a decoder-only transformer we need to use masked encoder layers
                 # Dummy decoder to essentially just return the encoder output
                 self.transformer = nn.Transformer(
@@ -105,7 +105,7 @@ class MusicTransformer(nn.Module):
                     num_decoder_layers=self.num_decoder_layers, dropout=self.dropout,  # activation=self.ff_activ,
                     dim_feedforward=self.d_ff,
                 )
-            # RPR Transformer
+            # RelativePosition Transformer
             else:
                 encoder_norm = nn.LayerNorm(self.d_model)
                 encoder_layer = TransformerEncoderLayerRPR(self.d_model, self.nhead, self.d_ff, self.dropout,
@@ -365,7 +365,7 @@ def transformer_decoder_dev_baseline(
         dropout=0.1,
         encoder_max_seq=300,
         decoder_max_seq=512,
-        rpr=False,
+        RelativePosition=False,
         num_encoder_layers=6,
         num_decoder_layers=0,
         layout='body25',
@@ -397,7 +397,7 @@ def transformer_decoder_dev_baseline(
         dropout=dropout,
         encoder_max_seq=encoder_max_seq,
         decoder_max_seq=decoder_max_seq,
-        rpr=rpr,
+        RelativePosition=RelativePosition,
         num_encoder_layers=num_encoder_layers,
         num_decoder_layers=num_decoder_layers,
         use_control=use_control,

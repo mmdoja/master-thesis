@@ -170,7 +170,7 @@ class MultiheadAttentionRPR(Module):
     ----------
     For Relative Position Representation support (https://arxiv.org/abs/1803.02155)
     https://pytorch.org/docs/1.2.0/_modules/torch/nn/modules/activation.html#MultiheadAttention
-    Modification to add RPR embedding Er and call custom multi_head_attention_forward_rpr
+    Modification to add RelativePosition embedding Er and call custom multi_head_attention_forward_rpr
     ----------
     """
 
@@ -208,7 +208,7 @@ class MultiheadAttentionRPR(Module):
 
         self.add_zero_attn = add_zero_attn
 
-        # Adding RPR embedding matrix
+        # Adding RelativePosition embedding matrix
         if (er_len is not None):
             self.Er = Parameter(torch.rand((er_len, self.head_dim), dtype=torch.float32))
         else:
@@ -315,7 +315,7 @@ def multi_head_attention_forward_rpr(query,  # type: Tensor
     ----------
     For Relative Position Representation support (https://arxiv.org/abs/1803.02155)
     https://pytorch.org/docs/1.2.0/_modules/torch/nn/functional.html
-    Modification to take RPR embedding matrix and perform skew optimized RPR (https://arxiv.org/abs/1809.04281)
+    Modification to take RelativePosition embedding matrix and perform skew optimized RelativePosition (https://arxiv.org/abs/1809.04281)
     ----------
     """
 
@@ -474,7 +474,7 @@ def multi_head_attention_forward_rpr(query,  # type: Tensor
     attn_output_weights = torch.bmm(q, k.transpose(1, 2))
     assert list(attn_output_weights.size()) == [bsz * num_heads, tgt_len, src_len]
 
-    ######### ADDITION OF RPR ###########
+    ######### ADDITION OF RelativePosition ###########
     if (rpr_mat is not None):
         rpr_mat = _get_valid_embedding(rpr_mat, q.shape[1], k.shape[1])
         qe = torch.einsum("hld,md->hlm", q, rpr_mat)
@@ -517,7 +517,7 @@ def _get_valid_embedding(Er, len_q, len_k):
     ----------
     Author: Damon Gwinn
     ----------
-    Gets valid embeddings based on max length of RPR attention
+    Gets valid embeddings based on max length of RelativePosition attention
     ----------
     """
 
@@ -531,7 +531,7 @@ def _skew(qe):
     ----------
     Author: Damon Gwinn
     ----------
-    Performs the skew optimized RPR computation (https://arxiv.org/abs/1809.04281)
+    Performs the skew optimized RelativePosition computation (https://arxiv.org/abs/1809.04281)
     ----------
     """
     # print('qe', qe.shape)

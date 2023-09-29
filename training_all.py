@@ -1,6 +1,6 @@
-from core.engine import BaseEngine
+from core.baseengine import Basebaseengine
 from pyhocon import ConfigTree
-from core.dataloaders import DataLoaderFactory
+from core.iterators import DataLoaderFactory
 from core.models import ModelFactory
 from torch.utils.tensorboard import SummaryWriter
 import torch
@@ -11,15 +11,15 @@ import random
 from torch import nn, optim
 from core.utils.torchpie import AverageMeter
 import time
-from core.dataloaders.youtube_dataset import YoutubeDataset
-from core.criterion import SmoothCrossEntropyLoss
+from core.iterators.YT_data import YoutubeDataset
+from core.Loss import SmoothCrossEntropyLoss
 from core.optimizer import CustomSchedule
-from core.metrics import compute_epiano_accuracy
+from core.accuracy import compute_epiano_accuracy
 from pprint import pprint
 from pyhocon import ConfigFactory, ConfigTree
 
 
-class Engine(BaseEngine):
+class baseengine(Basebaseengine):
 
     def __init__(self, cfg: ConfigTree, args):
         self.cfg = cfg
@@ -32,10 +32,10 @@ class Engine(BaseEngine):
         self.test_ds = self.dataset_builder.build(split='val')
         self.ds: YoutubeDataset = self.train_ds.dataset
 
-        self.train_criterion = nn.CrossEntropyLoss(
+        self.train_Loss = nn.CrossEntropyLoss(
             ignore_index=self.ds.PAD_IDX
         )
-        self.val_criterion = nn.CrossEntropyLoss(
+        self.val_Loss = nn.CrossEntropyLoss(
             ignore_index=self.ds.PAD_IDX
         )
         self.model: nn.Module = self.model_builder.build(device=torch.device('cuda'), wrapper=nn.DataParallel)
@@ -82,7 +82,7 @@ class Engine(BaseEngine):
             # print(f"feat: {feat.shape}, midi_x: {midi_x.shape}, control: {control}")
             output = self.model(feat, midi_x, pad_idx=self.ds.PAD_IDX, control=control)
 
-            loss = self.train_criterion(output.view(-1, output.shape[-1]), midi_y.flatten())
+            loss = self.train_Loss(output.view(-1, output.shape[-1]), midi_y.flatten())
 
             self.optimizer.zero_grad()
             loss.backward()
@@ -146,7 +146,7 @@ class Engine(BaseEngine):
                 output: [B, T, D] -> [BT, D]
                 target: [B, T] -> [BT]
                 """
-                loss = self.val_criterion(output.view(-1, output.shape[-1]), midi_y.flatten())
+                loss = self.val_Loss(output.view(-1, output.shape[-1]), midi_y.flatten())
 
                 acc = compute_epiano_accuracy(output, midi_y)
 
@@ -206,9 +206,9 @@ def main():
     print('=' * 100)
     pprint(cfg)
     print('=' * 100)
-    engine = Engine(cfg, args)
-    engine.run()
-    engine.close()
+    baseengine = baseengine(cfg, args)
+    baseengine.run()
+    baseengine.close()
 
 
 if __name__ == '__main__':

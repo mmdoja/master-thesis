@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from core.models.CoST_GCN.ops import ConvTemporalGraphical, Graph
+from core.models.CoST_GCN.operations import ConvTemporalGraphical, Graph
 
 
 class CoST_GCN_18(nn.Module):

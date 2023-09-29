@@ -20,17 +20,17 @@ class DataLoaderFactory:
         elif dset == 'urmp_testingMIDI':
             from .urmp_testingMIDI import URMPtestingMIDIDataset
             ds = URMPtestingMIDIDataset.from_cfg(self.cfg, split=split)
-        elif dset == 'atinpiano':
+        elif dset == 'Piano':
             from .urmp_transformer_decoder import URMPDataset
             ds = URMPDataset.from_cfg(self.cfg, split=split)
-        elif dset == 'youtube_atinpiano':
-            from .youtube_dataset import YoutubeDataset
+        elif dset == 'youtube_Piano':
+            from .YT_data import YoutubeDataset
             ds = YoutubeDataset.from_cfg(self.cfg, split=split)
         elif dset == 'music21_segment':
-            from .youtube_dataset import YoutubeSegmentDataset
+            from .YT_data import YoutubeSegmentDataset
             ds = YoutubeSegmentDataset.from_cfg(self.cfg, split=split)
         elif dset == 'youtube_urmp':
-            from .youtube_dataset import YoutubeURMPDataset
+            from .YT_data import YoutubeURMPDataset
             ds = YoutubeURMPDataset.from_cfg(self.cfg, split=split)
         else:
             raise Exception

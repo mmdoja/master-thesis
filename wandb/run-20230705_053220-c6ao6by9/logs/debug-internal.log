@@ -1164,7 +1164,7 @@ _info {
 2023-07-05 05:50:44,821 INFO    SenderThread:2844710 [sender.py:_save_file():1354] saving file wandb-summary.json with policy end
 2023-07-05 05:50:45,106 INFO    Thread-12 :2844710 [dir_watcher.py:_on_file_modified():289] file/dir modified: /home/s6modoja/thesis/master-thesis/wandb/run-20230705_053220-c6ao6by9/files/wandb-summary.json
 2023-07-05 05:50:45,106 INFO    Thread-12 :2844710 [dir_watcher.py:_on_file_modified():289] file/dir modified: /home/s6modoja/thesis/master-thesis/wandb/run-20230705_053220-c6ao6by9/files/events.out.tfevents.1688527945.node-06.bender.2844696.0
-2023-07-05 05:50:45,636 INFO    wandb-upload_0:2844710 [upload_job.py:push():133] Uploaded file /tmp/tmpuwmmgx2wwandb/p97opsmq-events.out.tfevents.1688527945.node-06.bender.2844696.0
+2023-07-05 05:50:45,636 INFO    wandb-upload_0:2844710 [upload_job.py:push():133] Uploaded file /tmp/tmpuwmmgx2wwandb/p97operationsmq-events.out.tfevents.1688527945.node-06.bender.2844696.0
 2023-07-05 05:50:46,150 INFO    Thread-12 :2844710 [dir_watcher.py:_on_file_modified():289] file/dir modified: /home/s6modoja/thesis/master-thesis/wandb/run-20230705_053220-c6ao6by9/files/output.log
 2023-07-05 05:50:47,549 DEBUG   HandlerThread:2844710 [handler.py:handle_request():144] handle_request: status_report
 2023-07-05 05:50:48,196 INFO    Thread-12 :2844710 [dir_watcher.py:_on_file_modified():289] file/dir modified: /home/s6modoja/thesis/master-thesis/wandb/run-20230705_053220-c6ao6by9/files/events.out.tfevents.1688527945.node-06.bender.2844696.0
