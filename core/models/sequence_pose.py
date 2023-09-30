@@ -46,7 +46,7 @@ def sequence_pose_baseline(
         use_faster=False
 ):
     # from .CoST_GCN.CoST_GCN_dilated import CoST_GCN_baseline
-    from .CoST_GCN.CoST_GCN_aaai18 import CoST_GCN_baseline
+    from .CoST_GCN.CoST_GCN_23 import CoST_GCN_baseline
 
     in_channels = 2 if layout == 'hands' else 3
 
@@ -68,7 +68,7 @@ def sequence_pose_baseline(
 
 def sequence_pose_testingMIDI(emb_dim=256, hid_dim=512, layout='body25'):
     # from .CoST_GCN.CoST_GCN_dilated import CoST_GCN_baseline
-    from .CoST_GCN.CoST_GCN_aaai18 import CoST_GCN_baseline
+    from .CoST_GCN.CoST_GCN_23 import CoST_GCN_baseline
     pose_encoder = CoST_GCN_baseline(3, emb_dim, layout=layout)
     seq2seq = seq2seq_baseline(
         # 240 + 3,

@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import random
-from core.models.CoST_GCN.CoST_GCN_aaai18 import CoST_GCN_baseline
+from core.models.CoST_GCN.CoST_GCN_23 import CoST_GCN_baseline
 
 from .positional_encoding import PositionalEncoding
 from .RelativePosition import TransformerEncoderRPR, TransformerEncoderLayerRPR, TransformerDecoderLayerRPR, TransformerDecoderRPR
