@@ -15,7 +15,7 @@ pip install pyFluidSynth
 The link to the datasets are : 
 - URMP: [here](http://www2.ece.rochester.edu/projects/air/projects/URMP.html)
 - MUSIC: [here](https://github.com/roudimit/MUSIC_dataset)
-- Piano: [At Your Fingertips: Automatic Piano Fingering Detection](https://openreview.net/forum?id=H1MOqeHYvB). The dataset from [here](https://drive.google.com/file/d/1kDPZSA7ppOaup9Q1Dab7bW4OXNh9mAQA/view)
+- Piano: [here](https://drive.google.com/file/d/1kDPZSA7ppOaup9Q1Dab7bW4OXNh9mAQA/view)
 
 To extract poses from videos: 
 Use OpenPose API from [here](https://github.com/CMU-Perceptual-Computing-Lab/openpose)
