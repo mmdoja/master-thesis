@@ -1,3 +1,5 @@
+#parts taken help from CoST-GCN paper 2023 https://github.com/LukasHedegaard/continual-skeletons
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -5,8 +7,8 @@ import torch.nn.functional as F
 from core.models.CoST_GCN.operations import ConvTemporalGraphical, Graph
 
 
-class CoST_GCN_18(nn.Module):
-    r"""Spatial temporal graph convolutional networks.
+class CoST_GCN(nn.Module):
+    r"""Continual Spatial temporal graph convolutional networks.
 
     Args:
         in_channels (int): Number of channels in the input data
@@ -133,7 +135,7 @@ class CoST_GCN_18(nn.Module):
 
 
 class CoST_GCN_block(nn.Module):
-    r"""Applies a spatial temporal graph convolution over an input graph sequence.
+    r"""Applies a continual spatial temporal graph convolution over an input graph sequence.
 
     Args:
         in_channels (int): Number of channels in the input sequence data
@@ -217,7 +219,7 @@ def CoST_GCN_baseline(in_channels: int, out_channels: int, layers: int, layout='
         "layout": layout,
         "strategy": "spatial"
     }
-    model = CoST_GCN_18(
+    model = CoST_GCN(
         in_channels,
         out_channels,
         layers,
